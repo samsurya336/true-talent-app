@@ -1,0 +1,36 @@
+.modal {
+  position: fixed;
+  background: black;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  transition-property: opacity, color, background-color, border-color;
+  transition-timing-function: linear;
+  transition-duration: 250ms;
+}
+
+.show {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.313);
+}
+
+.hide {
+  opacity: 0;
+}
+
+.modal_popup_child {
+  transition-property: transform;
+  transition-timing-function: linear;
+  transition-duration: 250ms;
+  height: 100%;
+  width: 100%;
+}
+
+.popup-show {
+  transform: scale(1);
+}
+
+.popup-hide {
+  transform: scale(0);
+}
