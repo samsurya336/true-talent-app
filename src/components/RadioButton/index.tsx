@@ -25,10 +25,10 @@ export default function RadioButton({
         id={name}
         name={name}
         checked={checked}
-        className="w-5 h-5 border border-[#D8D8D8] accent-[#1597E4] "
+        className="w-5 h-5 border border-light-gray accent-primary "
         onChange={onChange}
       />
-      <label className=" text-[#7A7A7A] text-sm leading-[20px]" htmlFor={name}>
+      <label className=" text-dark-gray text-sm" htmlFor={name}>
         {label}
       </label>
     </div>

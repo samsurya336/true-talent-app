@@ -81,7 +81,7 @@ export default function CreateJob() {
 
   return (
     <section
-      className="bg-white rounded-[10px] flex flex-col p-[32px] w-[577px] max-h-[80vh] overflow-auto"
+      className="bg-white rounded-lg flex flex-col p-8 w-[370px] sm:w-[577px] max-h-[80vh] overflow-auto"
       onClick={(event) => event.stopPropagation()}
     >
       <section className="flex justify-between items-center mb-6">
@@ -365,9 +365,7 @@ const FormTwo = ({
       />
 
       <div className="mb-24">
-        <p className="text-black text-[14px] leading-[20px] font-bold mb-3">
-          Apply type
-        </p>
+        <p className="text-black text-sm font-bold mb-3">Apply type</p>
         <div className="flex items-center gap-x-4">
           <RadioButton
             name={quickApply.name}

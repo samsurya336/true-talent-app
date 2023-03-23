@@ -17,8 +17,8 @@ export default function Home() {
   const [showModal, setShowModal] = useState(false);
   return (
     <>
-      <header className="bg-white py-[16px] px-[42px] md:px-[85px] flex flex-row justify-between items-center sticky top-0">
-        <p className="text-[400] text-[24px]">True Talent</p>
+      <header className="bg-white py-4 px-10 md:px-20 flex flex-row justify-between items-center sticky top-0">
+        <p className="text-[400] text-2xl">True Talent</p>
         <Button
           title="Create Job"
           themeType=""
@@ -26,96 +26,42 @@ export default function Home() {
         />
       </header>
 
-      <div className="bg-[#E6E6E6] py-[8px] px-[42px] md:py-[16px] md:px-[85px] ">
-        {/* <form
-        onChange={(event: ChangeEvent<HTMLFormElement>) => {
-          setFormOneState((prevState) => ({
-            ...prevState,
-            [event.target.name]: event.target.value,
-          }));
-        }}
-      >
-        <TextField
-          label={"Job Title"}
-          placeHolder={"ex. UX UI Designer"}
-          name={"jonTitle"}
-          value={formOneState.jonTitle}
-          onChange={(event: ChangeEvent<HTMLInputElement>) => {
-            console.log("2 event : ", event);
-          }}
-        />
-        <TextField
-          label={"Company name"}
-          placeHolder={"ex. Google"}
-          name={"companyName"}
-          value={formOneState.companyName}
-          onChange={() => {}}
-        />
-        <TextField
-          label={"Industry"}
-          placeHolder={"ex. Information Technology "}
-          name={"industry"}
-          value={formOneState.industry}
-          onChange={() => {}}
-        />
-        <TextField
-          label={"Location"}
-          placeHolder={"ex. Chennai"}
-          name={"location"}
-          value={formOneState.location}
-          onChange={() => {}}
-        />
-        <TextField
-          label={"Remote type"}
-          placeHolder={"ex. In-office"}
-          name={"remoteType"}
-          value={formOneState.remoteType}
-          onChange={() => {}}
-        />
-      </form> */}
+      <div className="bg-light-gray py-2 px-10 md:py-4 md:px-[85px] ">
         <>
           {true && (
-            <div className="gap-x-[83px] gap-y-[34px] md:gap-y-[79px] grid grid-cols-1 lg:grid-cols-2">
+            <div className="gap-x-20 gap-y-8 md:gap-y-16 grid grid-cols-1 lg:grid-cols-2">
               {mockData.map((jobDetail, index) => {
                 return (
                   <section
                     key={`jonDetail-${index}`}
-                    className="bg-white rounded-[10px] flex py-[16px] px-[24px] flex-row"
+                    className="bg-white rounded-lg flex py-4 px-6 flex-row"
                   >
-                    <div className="mr-[8px]">
-                      <div
-                        style={{
-                          height: "48px",
-                          width: "48px",
-                          backgroundColor: "red",
-                        }}
-                      />
+                    <div className="mr-2">
+                      <div className="h-12 y-12 bg-red-800" />
                     </div>
                     <div>
-                      <h1 className="font-[400] text-[24px] leading-[32px]">
-                        {jobDetail.title}
-                      </h1>
-                      <p className="font-[400] text-[16px] leading-[24px]">
+                      <h1 className="font-[400] text-2xl">{jobDetail.title}</h1>
+                      <p className="font-[400] text-base">
                         {jobDetail.companyName} - {jobDetail.industry}
                       </p>
-                      <p className="text-[#646464] font-[400] text-[16px] leading-[24px] mb-[24px]">
+                      <p className="text-dark-grey font-[400] text-[16px] text-base mb-6">
                         {jobDetail.location} - {jobDetail.workType}
                       </p>
-                      <p className="font-[400] text-[16px] leading-[24px] mb-[8px]">
+                      <p className="font-[400] text-base mb-2">
                         {jobDetail.jobType}
                       </p>
-                      <p className="font-[400] text-[16px] leading-[24px] mb-[8px]">
+                      <p className="font-[400] text-base mb-2">
                         Experience {jobDetail.experience.min} -{" "}
                         {jobDetail.experience.max}
                       </p>
-                      <p className="font-[400] text-[16px] leading-[24px] mb-[8px]">
+                      <p className="font-[400] text-base mb-2">
                         INR (₹) {jobDetail.salary.min} - {jobDetail.salary.max}{" "}
                         / Month
                       </p>
-                      <p className="font-[400] text-[16px] leading-[24px] mb-[8px]">
+                      <p className="font-[400] text-base mb-2">
                         {jobDetail.totalEmployee} employees
                       </p>
-                      <p className="font-[400] text-[16px] leading-[24px] mb-6">
+                      <p className="font-[400] text-base mb-6">
                         {jobDetail.applyType}
                       </p>
                       {jobDetail.applyType === "quick-apply" && (

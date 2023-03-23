@@ -22,11 +22,11 @@ export default function Button({
   return (
     <button
       type={type}
-      className={`font-[500] text-[16px] py-[8px] px-[16px] ${
+      className={`font-[500] text-base py-2 px-4 ${
         themeType === "PRIMARY"
-          ? "bg-[#1597E4] text-white"
-          : "bg-white text-[#1597E4] border-solid border-[1px] border-[#1597E4]"
-      } rounded-[6px] flex flex-row items-center ${
+          ? "bg-primary text-white"
+          : "bg-white text-primary border-solid border border-primary"
+      } rounded-md flex flex-row items-center ${
         disabled && "opacity-50 cursor-not-allowed"
       }
        ${className}`}

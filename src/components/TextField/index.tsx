@@ -25,18 +25,18 @@ export default function TextField({
     <div className={`relative ${className}`}>
       {label && (
         <label
-          className="block text-black text-[14px] leading-[20px] font-bold mb-[4px] "
+          className="block text-black text-sm font-bold mb-1"
           htmlFor={name}
         >
           {label}&nbsp;
-          {required === true && <span className="text-[#D86161]">*</span>}
+          {required === true && <span className="text-error">*</span>}
         </label>
       )}
       <input
-        className={`appearance-none border border-[#E6E6E6] rounded w-full py-2 px-3 
-        text-[#7A7A7A] leading-tight focus:outline-none focus:border-[#1597E4] 
-        placeholder:text-sm placeholder:text-[#7A7A7A] ${
-          error ? "border-[#D86161]" : ""
+        className={`appearance-none border border-light-gray rounded w-full py-2 px-3 
+        text-dark-gray leading-tight focus:outline-none focus:border-primary 
+        placeholder:text-sm placeholder:text-dark-gray ${
+          error ? "border-error" : ""
         }
         `}
         id={name}
@@ -47,7 +47,7 @@ export default function TextField({
         onChange={onChange}
       />
       <p
-        className={`-bottom-4 absolute text-[#D86161] text-xs transition-transform ease-linear duration-[200ms] ${
+        className={`-bottom-4 absolute text-error text-xs transition-transform ease-linear duration-[200ms] ${
           error ? "scale-100" : "scale-0"
         } `}
       >
