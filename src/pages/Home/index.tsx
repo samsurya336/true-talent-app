@@ -1,23 +1,62 @@
-import { ChangeEvent, FormEvent, FormEventHandler, useState } from "react";
+import {
+  ChangeEvent,
+  FormEvent,
+  FormEventHandler,
+  useEffect,
+  useState,
+} from "react";
 import { mockData } from "../../utils/constants";
 import TextField from "../../components/TextField";
 import Modal from "../../components/Modal";
 import Header from "../../components/Header";
 import Button from "../../components/Button";
-import CreateJob from "../CreateJob";
+import { CreateJobModal, getJobs, IJob } from "../job";
+import { useToastSetters } from "../../components/Toast";
+import useApi from "../../hooks/useApi";
+import api from "../../libs/axios";
+import netflixLogo from "../../assets/icons/netflix_logo.svg";
 
 export default function Home() {
-  const [formOneState, setFormOneState] = useState({
-    jonTitle: "",
-    companyName: "",
-    industry: "",
-    location: "",
-    remoteType: "",
-  });
   const [showModal, setShowModal] = useState(false);
+
+  const [isGetJobsApiLoading, data, getJobsApi] = useApi<IJob[]>(getJobs);
+
+  useEffect(() => {
+    // getJobsApi();
+  }, []);
+  console.log("Data : ", data);
+
+  const jobExperience = (
+    jobExperience: { min: number; max: number } | undefined
+  ): string => {
+    if (jobExperience) {
+      return `${jobExperience.min} - ${jobExperience.max}`;
+    } else {
+      return " : ---  -  ---";
+    }
+  };
+
+  const jobSalary = (
+    jobSalary: { min: number; max: number } | undefined
+  ): string => {
+    if (jobSalary) {
+      return `${jobSalary.min} - ${jobSalary.max} / month`;
+    } else {
+      return "---";
+    }
+  };
+
+  const totalEmployees = (employees: string | undefined): string => {
+    if (employees) {
+      return `${employees} employees`;
+    } else {
+      return "Employees : ---";
+    }
+  };
+
   return (
     <>
-      <header className="bg-white py-4 px-10 md:px-20 flex flex-row justify-between items-center sticky top-0">
+      <header className="bg-white py-4 px-10 md:px-20 flex flex-row justify-between items-center sticky top-0 ">
         <p className="text-[400] text-2xl">True Talent</p>
         <Button
           title="Create Job"
@@ -30,44 +69,40 @@ export default function Home() {
         <>
           {true && (
             <div className="gap-x-20 gap-y-8 md:gap-y-16 grid grid-cols-1 lg:grid-cols-2">
-              {mockData.map((jobDetail, index) => {
+              {mockData.map((jobDetail: IJob, index) => {
                 return (
                   <section
                     key={`jonDetail-${index}`}
                     className="bg-white rounded-lg flex py-4 px-6 flex-row"
                   >
                     <div className="mr-2">
-                      <div className="h-12 y-12 bg-red-800" />
+                      <img className="h-12 y-12" src={netflixLogo} alt="" />
                     </div>
                     <div>
                       <h1 className="font-[400] text-2xl">{jobDetail.title}</h1>
                       <p className="font-[400] text-base">
                         {jobDetail.companyName} - {jobDetail.industry}
                       </p>
-                      <p className="text-dark-grey font-[400] text-[16px] text-base mb-6">
-                        {jobDetail.location} - {jobDetail.workType}
+                      <p className="text-dark-gray font-[400] text-base mb-6">
+                        {jobDetail.location || "Location : unknown"} -{" "}
+                        {jobDetail.workType || "Work Type : unknown"}
                       </p>
                       <p className="font-[400] text-base mb-2">
-                        {jobDetail.jobType}
+                        {jobDetail.jobType || "Job Type : ----"}
                       </p>
                       <p className="font-[400] text-base mb-2">
-                        Experience {jobDetail.experience.min} -{" "}
-                        {jobDetail.experience.max}
+                        Experience {jobExperience(jobDetail.experience)}
                       </p>
                       <p className="font-[400] text-base mb-2">
-                        INR (₹) {jobDetail.salary.min} - {jobDetail.salary.max}{" "}
-                        / Month
+                        INR (₹) {jobSalary(jobDetail.salary)}
                       </p>
                       <p className="font-[400] text-base mb-2">
-                        {jobDetail.totalEmployee} employees
+                        {totalEmployees(jobDetail.totalEmployee)}
                       </p>
-                      <p className="font-[400] text-base mb-6">
-                        {jobDetail.applyType}
-                      </p>
-                      {jobDetail.applyType === "quick-apply" && (
+                      {jobDetail.applyType === "QUICK-APPLY" && (
                         <Button title="Apply Now" onClick={() => {}} />
                       )}
-                      {jobDetail.applyType === "external-apply" && (
+                      {jobDetail.applyType === "EXTERNAL-APPLY" && (
                         <Button
                           title="External Apply"
                           themeType="SECONDARY"
@@ -89,7 +124,7 @@ export default function Home() {
         }}
       >
         <div className="h-full w-full flex justify-center items-center">
-          <CreateJob />
+          <CreateJobModal />
         </div>
       </Modal>
     </>

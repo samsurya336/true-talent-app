@@ -10,6 +10,8 @@ module.exports = {
         "lite-white": "#FAFAFA",
         error: "#D86161",
         "dark-gray": "#7A7A7A",
+        success: "#8ef9b3",
+        warning: "#ffdc91",
       },
     },
   },
