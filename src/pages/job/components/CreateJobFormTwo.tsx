@@ -62,29 +62,64 @@ export const CreateJobFormTwo = ({
     });
   };
 
+  // Returns TRUE when validation PASSES
+  const experienceValidation = () => {
+    let hasError = false;
+
+    const EXPERIENCE_MIN_MAX_HAS_VALUES =
+      experienceMin.value && experienceMax.value;
+
+    if (EXPERIENCE_MIN_MAX_HAS_VALUES) {
+      const _experienceMin: number = parseInt(experienceMin.value as string);
+      const _experienceMax: number = parseInt(experienceMax.value as string);
+      const EXPERIENCE_MIN_VALUE_GREATER_THAN_MAX =
+        _experienceMin > _experienceMax;
+      if (EXPERIENCE_MIN_VALUE_GREATER_THAN_MAX) {
+        hasError = true;
+      }
+    }
+    console.log("K2experienceValidation : ", !hasError);
+    return !hasError;
+  };
+
+  // Returns TRUE when validation PASSES
+  const salaryValidation = () => {
+    let hasError = false;
+
+    const SALARY_MIN_MAX_HAS_VALUES = salaryMin.value && salaryMax.value;
+
+    if (SALARY_MIN_MAX_HAS_VALUES) {
+      const _salaryMin: number = parseInt(salaryMin.value as string);
+      const _salaryMax: number = parseInt(salaryMax.value as string);
+      const SALARY_MIN_VALUE_GREATER_THAN_MAX = _salaryMin > _salaryMax;
+
+      if (SALARY_MIN_VALUE_GREATER_THAN_MAX) {
+        hasError = true;
+      }
+    }
+
+    return !hasError;
+  };
+
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const errors: { [key: string]: string | null } = {};
     let hasErrors = false;
 
-    const EXPERIENCE_MIN_MAX_HAS_VALUES =
-      formData[experienceMin.name].value && formData[experienceMax.name].value;
-
-    if (EXPERIENCE_MIN_MAX_HAS_VALUES) {
-      const experienceMin = isNaN(formData[experienceMin.name].value);
-      const EXPERIENCE_MIN_VALUE_LESSER_THAN_MAX =
-        formData[experienceMin.name].value <
-        formData[experienceMax.name]!.value;
+    if (experienceValidation() === false) {
+      hasErrors = true;
+      errors["experienceMin"] = "Should be Lesser than Max";
+      errors["experienceMax"] = "Should be Greater than Min";
     }
 
-    for (const key in formData) {
-      const IS_REQUIRED_FILED = REQUIRED_FILED.includes(key);
-      if (IS_REQUIRED_FILED === true && !formData[key].value) {
-        errors[key] = "Kindly fill this required field";
-        hasErrors = true;
-      }
+    if (salaryValidation() === false) {
+      hasErrors = true;
+      errors["salaryMin"] = "Should be Lesser than Max";
+      errors["salaryMax"] = "Should be Greater than Min";
     }
+
     setErrors({ ...errors });
+    console.log("K2 errors : ", errors);
     if (hasErrors === false) {
       onClickNext(2);
     }
@@ -92,15 +127,14 @@ export const CreateJobFormTwo = ({
 
   const isButtonDisabled = () => {
     let result: boolean = false;
-    for (const key in formData) {
-      console.log(key, " Value : ", formData[key].value);
-      const IS_REQUIRED_FILED = REQUIRED_FILED.includes(key);
-      if (IS_REQUIRED_FILED === true && !formData[key].value) {
-        result = true;
-        break;
-      }
+
+    if (experienceValidation() === false) {
+      result = true;
     }
-    console.log("Result : ", result);
+
+    if (salaryValidation() === false) {
+      result = true;
+    }
     return result;
   };
 
@@ -115,12 +149,14 @@ export const CreateJobFormTwo = ({
           placeHolder="Minimum"
           label="Experience"
           className="w-1/2"
+          error={experienceMin.error}
         />
         <TextField
           name={experienceMax.name}
           value={(experienceMax.value || "") as string}
           placeHolder="Maximum"
           className="w-1/2"
+          error={experienceMax.error}
         />
       </div>
 
@@ -131,12 +167,14 @@ export const CreateJobFormTwo = ({
           placeHolder="Minimum"
           label="Salary"
           className="w-1/2"
+          error={salaryMin.error}
         />
         <TextField
           name={salaryMax.name}
           value={(salaryMax.value || "") as string}
           placeHolder="Maximum"
           className="w-1/2"
+          error={salaryMax.error}
         />
       </div>
 
@@ -167,6 +205,7 @@ export const CreateJobFormTwo = ({
         type="submit"
         title="Save"
         className="ml-auto"
+        disabled={isButtonDisabled()}
         onClick={() => {}}
       />
     </form>

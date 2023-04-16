@@ -25,16 +25,16 @@ const optionsDefaultValue:OptionsType = {
   }
 }
 
-function useApi<Type>(api:() => Promise<any>, options: OptionsType = optionsDefaultValue) {
+function useApi<Type>(api:(args:any) => Promise<any>, options: OptionsType = optionsDefaultValue) {
   const [loading, setLoading] : [boolean,React.Dispatch<React.SetStateAction<boolean>>] = useState<boolean>(false);
   const [data, setData] = useState<Type>();
   const { setErrorToast, setSuccessToast } = useToastSetters();
   let _errorMessage:string = "";
 
-  async function callApi(): Promise<void>{
+  async function callApi(args:any): Promise<void>{
     try {
       setLoading(true);
-      const response = await api();
+      const response = await api(args);
       setData(response)
       console.log("K1 Response : ", response);
       if(options.successToast?.showToast === true){
@@ -54,7 +54,7 @@ function useApi<Type>(api:() => Promise<any>, options: OptionsType = optionsDefa
   const result:[
     boolean, 
     Type | undefined,
-    () => Promise<void>,string
+    (args:any) => Promise<void>,string
   ] = [
     loading,
     data,

@@ -10,7 +10,7 @@ import TextField from "../../components/TextField";
 import Modal from "../../components/Modal";
 import Header from "../../components/Header";
 import Button from "../../components/Button";
-import { CreateJobModal, getJobs, IJob } from "../job";
+import { CreateJobModal, getJobs, IJob, postJob } from "../job";
 import { useToastSetters } from "../../components/Toast";
 import useApi from "../../hooks/useApi";
 import api from "../../libs/axios";
@@ -19,7 +19,7 @@ import netflixLogo from "../../assets/icons/netflix_logo.svg";
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
 
-  const [isGetJobsApiLoading, data, getJobsApi] = useApi<IJob[]>(getJobs);
+  const [isGetJobsApiLoading, data, getJobsApi] = useApi<IJob[]>(postJob);
 
   useEffect(() => {
     // getJobsApi();

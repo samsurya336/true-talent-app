@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
@@ -9,13 +9,18 @@ import Providers from "./providers";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
-root.render(
-  <React.StrictMode>
-    <Providers>
-      <App />
-    </Providers>
-  </React.StrictMode>
-);
+
+const DTest = () => {
+  useState(() => console.log("k2 DTest Mounted"));
+  return (
+    <React.StrictMode>
+      <Providers>
+        <App />
+      </Providers>
+    </React.StrictMode>
+  );
+};
+root.render(<DTest />);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
